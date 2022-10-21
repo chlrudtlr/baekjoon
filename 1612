@@ -1,0 +1,38 @@
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    int n=0;
+    cin>>n;//1<=n<=1,000,000
+    int digit=1;
+    int r=0;
+    int fail=-1;
+    int num=1;
+    while(num<=n)
+    {
+        num=num*10+1;
+        digit++;
+    }
+    if(n%2==0 || n%5==0)
+        cout<<fail<<endl;
+    else if(num/10==n)
+        cout<<digit-1<<endl;
+    else
+    {
+        while(true)
+        {
+            r=num%n;
+            if(r==0)
+                break;
+            else
+            {
+                num=r*10+1;
+                digit++;
+            }
+        }
+        cout<<digit<<endl;
+    }
+    return 0;
+}
