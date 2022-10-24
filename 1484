@@ -1,0 +1,38 @@
+#include <iostream>
+#include <cmath>
+#include <vector>
+
+using namespace std;
+
+int main()
+{
+    int g=0;
+    vector<int> v;
+    int check=-1;
+
+    cin>>g;
+
+    int k=sqrt(g);
+    for(int i=1;i<=k;i++)
+    {
+        if(g%i==0 && g/i!=i) // g/i!=i를 빼먹어서 계속 틀림,,,
+            v.push_back(i);
+    }
+
+    int size=v.size();
+
+    for(int i=size-1;i>=0;i--)
+    {
+        int sub=v[i];
+        int add=g/sub;
+        if((add+sub)%2==0)
+        {
+            cout<<(add+sub)/2<<endl;
+            check=0;
+        }
+    }
+    if(check==-1)
+        cout<<check<<endl;
+
+    return 0;
+}
