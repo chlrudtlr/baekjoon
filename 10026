@@ -1,0 +1,153 @@
+#include <iostream>
+
+using namespace std;
+
+char color[101][101];
+int area_num[101][101];
+int mark;
+
+void check_color(int i, int j)
+{
+    if(color[i-1][j]=='G')
+    {
+        color[i-1][j]='R';
+        check_color(i-1, j);
+    }
+    if(color[i+1][j]=='G')
+    {
+        color[i+1][j]='R';
+        check_color(i+1, j);
+    }
+    if(color[i][j-1]=='G')
+    {
+        color[i][j-1]='R';
+        check_color(i, j-1);
+    }
+    if(color[i][j+1]=='G')
+    {
+        color[i][j+1]='R';
+        check_color(i, j+1);
+    }
+}
+
+void color_relocation(int size)
+{
+    for(int i=0;i<size;i++)
+    {
+        for(int j=0;j<size;j++)
+        {
+            if(color[i][j]=='R')
+            {
+                check_color(i, j);
+            }
+        }
+    }
+}
+
+int check_area(int size)
+{
+    int num=0;
+    for(int i=0;i<size;i++)
+    {
+        for(int j=0;j<size;j++)
+        {
+            if(area_num[i][j]>num)
+            {
+                num=area_num[i][j];
+            }
+        }
+    }
+    return num;
+}
+
+void initialize_area_num()
+{
+    for(int i=0;i<101;i++)
+    {
+        for(int j=0;j<101;j++)
+            area_num[i][j]=0;
+    }
+}
+
+void Find_Same_color(int i, int j)
+{
+    area_num[i][j]=mark;
+    if(color[i][j]==color[i-1][j] && area_num[i-1][j]==0) Find_Same_color(i-1, j);
+    if(color[i][j]==color[i+1][j] && area_num[i+1][j]==0) Find_Same_color(i+1, j);
+    if(color[i][j]==color[i][j-1] && area_num[i][j-1]==0) Find_Same_color(i, j-1);
+    if(color[i][j]==color[i][j+1] && area_num[i][j+1]==0) Find_Same_color(i, j+1);
+}
+
+void Numbering_Area(int size)
+{
+    for(int i=0;i<size;i++)
+    {
+        for(int j=0;j<size;j++)
+        {
+            if(area_num[i][j]==0)
+            {
+                Find_Same_color(i, j);
+                mark++;
+            }
+        }
+    }
+}
+
+void print_area_color(int size)
+{
+    for(int i=0;i<size;i++)
+    {
+        for(int j=0;j<size;j++)
+        {
+            cout<<color[i][j];
+        }
+        cout<<endl;
+    }
+    cout<<endl;
+}
+
+void print_area_number(int size)
+{
+    for(int i=0;i<size;i++)
+    {
+        for(int j=0;j<size;j++)
+        {
+            cout<<area_num[i][j];
+        }
+        cout<<endl;
+    }
+    cout<<endl;
+}
+
+int main()
+{
+    int field_size=0;
+    int n1=0;
+    int n2=0;
+
+    cin>>field_size;
+    for(int i=0;i<field_size;i++)
+    {
+        for(int j=0;j<field_size;j++)
+            cin>>color[i][j];
+    }
+    for(int i=0;i<101;i++)
+    {
+        for(int j=0;j<101;j++)
+            area_num[i][j]=0;
+    }
+    mark=1;
+
+    Numbering_Area(field_size);
+    n1=check_area(field_size);
+    initialize_area_num();
+
+    color_relocation(field_size);
+
+    mark=1;
+    Numbering_Area(field_size);
+    n2=check_area(field_size);
+
+    cout<<n1<<" "<<n2<<endl;
+    return 0;
+}
