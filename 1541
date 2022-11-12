@@ -1,0 +1,80 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+int main()
+{
+    string cal;
+    int num[50];
+    char sign[50];
+
+    cin>>cal;
+
+    int size=cal.length();
+    int a=0;
+    int numi=0;
+    int signi=0;
+    int check=0;
+    for(int i=0;i<size;i++)
+    {
+        if(cal[i]!='0' && cal[i]!='-' && cal[i]!='+')
+        {
+            a=a*10+cal[i]-48;
+            check=1;
+        }
+        if(cal[i]=='0' && check==1)
+        {
+            a=a*10;
+        }
+        if(cal[i]=='-' || cal[i]=='+')
+        {
+            sign[signi]=cal[i];
+            num[numi]=a;
+            signi++;
+            numi++;
+            check=0;
+            a=0;
+        }
+        if(i==size-1)
+        {
+            num[numi]=a;
+            numi++;
+        }
+    }
+    int s=0;
+    int n=0;
+    int nn[50]={0};
+    int k=0;
+    int b=num[0];
+    while(s<signi)
+    {
+        if(sign[s]=='+')
+        {
+            b+=num[n+1];
+            s++;
+            n++;
+        }
+        if(sign[s]=='-')
+        {
+            nn[k]=b;
+            b=num[n+1];
+            k++;
+            n++;
+            s++;
+        }
+    }
+
+    nn[k]=b;
+    k++;
+
+    int result=nn[0];
+    for(int i=1;i<k;i++)
+    {
+        result-=nn[i];
+    }
+
+    cout<<result<<endl;
+
+    return 0;
+}
