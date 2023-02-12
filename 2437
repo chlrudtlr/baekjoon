@@ -1,0 +1,33 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+
+using namespace std;
+
+int main()
+{
+    vector<int> chu;
+    int n=0;
+    int a=0;
+    cin>>n;
+    for(int i=0;i<n;i++){
+        cin>>a;
+        chu.push_back(a);
+    }
+    sort(chu.begin(), chu.end());
+
+    int weight=1;
+
+    for(int i=0;i<n;i++){
+        if(chu[i]>weight){
+            break;
+        }
+        else{
+            weight+=chu[i];
+        }
+    }
+
+    cout<<weight<<endl;
+
+    return 0;
+}
