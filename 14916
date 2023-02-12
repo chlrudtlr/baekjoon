@@ -1,0 +1,36 @@
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    int money=0;
+    int five=0;
+    int two=0;
+    int fail=-1;
+
+    cin>>money;
+
+    if(money%5==0){
+        cout<<money/5<<endl;
+    }
+    else{
+        while(money%5!=0){
+            two++;
+            money-=2;
+            if(money==0){
+                cout<<five+two<<endl;
+                break;
+            }
+            if(money<0){
+                cout<<fail<<endl;
+                break;
+            }
+        }
+        if(money>0){
+            cout<<two+money/5<<endl;
+        }
+    }
+
+    return 0;
+}
