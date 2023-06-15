@@ -1,0 +1,64 @@
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+int Num_Yaksu(int k1, int k2){
+    int a=0;
+    int num=0;
+    if(k1<k2){
+        a=k1;
+    }
+    else{
+        a=k2;
+    }
+    for(int i=1;i<a+1;i++){
+        if(k1%i==0 && k2%i==0){
+            num++;
+        }
+    }
+    return num;
+}
+
+int main()
+{
+    int yak=0;
+    int bae=0;
+    cin>>yak>>bae;
+
+    int num1=0; // num1=yak*k1
+    int num2=0; // num2=yak*k2
+    int sum=bae*2;
+
+    int multi_k = bae/yak;
+
+    for(int i=1;i<multi_k+1;i++){
+        int k1=i;
+        if(multi_k%k1==0){
+            int k2=multi_k/k1;
+            if(Num_Yaksu(k1,k2)==1){
+                int n1=yak*k1;
+                int n2=yak*k2;
+
+                if(n1+n2<=sum){
+                    //cout<<"num1:"<<num1<<" num2:"<<num2<<" sum:"<<sum;
+                    sum=n1+n2;
+                    num1=n1;
+                    num2=n2;
+                    //cout<<" -->> num1:"<<num1<<" num2:"<<num2<<" sum:"<<sum<<endl;
+                }
+            }
+        }
+    }
+
+    if(num1>num2){
+        int temp=0;
+        temp=num1;
+        num1=num2;
+        num2=temp;
+    }
+
+    cout<<num1<<" "<<num2;
+
+    return 0;
+}
